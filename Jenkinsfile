@@ -15,7 +15,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Running unit tests...'
+                echo 'Running unit tests...',
+                 sh npm run test:login
                 // Example: sh 'mvn test' or sh 'npm test'
             }
           }
