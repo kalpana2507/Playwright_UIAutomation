@@ -8,6 +8,6 @@
     "@types/node": "^25.6.0"
   },
   "scripts": {
-  "test:login": "playwright test tests/e2e/login.spec.ts"
+  "test:UISuite": "playwright test tests/e2e"
 }
 }
