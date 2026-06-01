@@ -14,15 +14,15 @@ pipeline {
          stage('Install Dependencies') {
             steps {
                 // Installs package.json dependencies and system binaries
-                sh 'npm ci' 
-                sh 'npx playwright install --with-deps'
+                bat 'npm ci' 
+                bat 'npx playwright install --with-deps'
             }
         }
         
         stage('Run Playwright Test File') {
             steps {
                 // Executes your custom package.json command
-                sh 'npm run test:login'
+                bat 'npm run test:login'
             }
         }
     }
