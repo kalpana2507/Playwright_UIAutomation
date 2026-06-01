@@ -22,7 +22,7 @@ pipeline {
         stage('Run Playwright Test File') {
             steps {
                 // Executes your custom package.json command
-                bat 'npm run test:login'
+                bat 'npm run test:UISuite'
             }
         }
     }
