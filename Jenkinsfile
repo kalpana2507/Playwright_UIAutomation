@@ -1,41 +1,36 @@
 pipeline {
-    agent any // Runs this pipeline on any available executor
-
+    agent any
+    
+    tools {
+        nodejs "Node 18" // Must match the exact name from Global Tool Configuration
+    }
+    
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                echo 'Pulling code from repository...'
+                checkout scm // Pulls project files from your Git repo
             }
         }
-        stage('Build') {
+         stage('Install Dependencies') {
             steps {
-                echo 'Building the application...'
-                // Example: sh 'mvn clean package' or sh 'npm run build'
+                // Installs package.json dependencies and system binaries
+                sh 'npm ci' 
+                sh 'npx playwright install --with-deps'
             }
         }
-        stage('Test') {
+        
+        stage('Run Playwright Test File') {
             steps {
-                echo 'Running unit tests...',
-                 sh npm run test:login
-                // Example: sh 'mvn test' or sh 'npm test'
-            }
-          }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application to server...'
+                // Executes your custom package.json command
+                sh 'npm run test:login'
             }
         }
     }
     
     post {
         always {
-            echo 'Cleaning up workspaces and reporting results.'
-        }
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check the logs.'
+            // Optional: Publish HTML or JUnit report artifacts
+            archiveArtifacts artifacts: 'playwright-report/**, test-results/**', allowEmptyArchive: true
         }
     }
 }
