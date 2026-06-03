@@ -8,6 +8,7 @@
     "@types/node": "^25.6.0"
   },
   "scripts": {
-  "test:UISuite": "playwright test tests/e2e"
+ 
+     "test:Lgin": "playwright test tests/e2e/example.spec.ts"
 }
 }
